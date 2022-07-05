@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Footer = () => {
   return (
     <footer className="mt-4 mb-4">
