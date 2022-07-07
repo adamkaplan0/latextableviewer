@@ -1,17 +1,8 @@
-import { XeTeXEngine } from "./XeTeXEngine";
-
-const engine = new XeTeXEngine();
-
-export const Preview = () => {
-  const init = async () => {
-    console.log(engine);
-    await engine.loadEngine();
-  }
-
+export const Preview = ({compile}) => {
   return (
     <article className="flex flex-col items-left">
       <div>
-      <button onClick={init}>Compile</button><button>Download</button>
+      <button onClick={compile}>Compile</button><button>Download</button>
       </div>
       <p className="border border-black">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id aliquet lectus proin nibh nisl condimentum id venenatis. Nisl purus in mollis nunc sed id semper risus in. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Massa tincidunt dui ut ornare lectus sit amet. Habitasse platea dictumst quisque sagittis purus sit. Duis at tellus at urna condimentum. Duis convallis convallis tellus id. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Nibh sit amet commodo nulla facilisi. Egestas congue quisque egestas diam in arcu cursus euismod. Consequat mauris nunc congue nisi vitae suscipit tellus. Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus. Semper feugiat nibh sed pulvinar proin gravida hendrerit. Ornare quam viverra orci sagittis eu. Ornare arcu odio ut sem nulla pharetra diam. Ac feugiat sed lectus vestibulum mattis ullamcorper. Pretium aenean pharetra magna ac placerat.
