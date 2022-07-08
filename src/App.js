@@ -1,31 +1,34 @@
 import { useState } from "react";
-
 import { Header } from './Header';
 import { Editor } from './Editor';
 import { Preview } from './Preview';
 import { Footer } from './Footer';
+import { DvipdfmxEngine } from './DvipdfmxEngine';
 import { XeTeXEngine } from "./XeTeXEngine";
 
-const engine = new XeTeXEngine();
+const xetexEngine = new XeTeXEngine();
+const dviEngine = new DvipdfmxEngine();
 
 function App() {
-  const [engineInitialized, setEngineInitialized] = useState(false);
+  const [enginesInitialized, setEnginesInitialized] = useState(false);
   const [code, setCode] = useState('');
 
   const init = async () => {
-    if (!engineInitialized) {
-      await engine.loadEngine();
-      setEngineInitialized(true);
+    if (!enginesInitialized) {
+      await xetexEngine.loadEngine();
+      await dviEngine.loadEngine();
+      setEnginesInitialized(true);
     }
-    console.log(engine);
+    console.log(xetexEngine);
+    console.log(dviEngine);
   }
 
   const compile = async () => {
     init();
-    if (!engine.isReady) return;
-    engine.writeMemFSFile("main.tex", code);
-    engine.setEngineMainFile("main.tex");
-    let r = await engine.compileLaTeX();
+    if (!xetexEngine.isReady() || !dviEngine.isReady()) return;
+    xetexEngine.writeMemFSFile("main.tex", code);
+    xetexEngine.setEngineMainFile("main.tex");
+    let r = await xetexEngine.compileLaTeX();
     console.log(r);
   }
 
