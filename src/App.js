@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from './Header';
 import { Editor } from './Editor';
 import { Preview } from './Preview';
@@ -12,6 +12,19 @@ const dviEngine = new DvipdfmxEngine();
 function App() {
   const [enginesInitialized, setEnginesInitialized] = useState(false);
   const [code, setCode] = useState('');
+  const [pdfUrl, setPdfUrl] = useState('');
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(()=>{
+      URL.revokeObjectURL(pdfUrl);
+      console.log('Revoked URL');
+    }, 30000);
+    return () => clearTimeout(timer);
+  }, [pdfUrl]);
 
   const init = async () => {
     if (!enginesInitialized) {
@@ -24,20 +37,31 @@ function App() {
   }
 
   const compile = async () => {
-    init();
-    if (!xetexEngine.isReady() || !dviEngine.isReady()) return;
+    if (!xetexEngine.isReady() || !dviEngine.isReady()) {
+      console.log('Engine not ready yey!');
+      return;
+    }
     xetexEngine.writeMemFSFile("main.tex", code);
     xetexEngine.setEngineMainFile("main.tex");
-    let r = await xetexEngine.compileLaTeX();
-    console.log(r);
+    let xetexCompilation = await xetexEngine.compileLaTeX();
+    console.log(xetexCompilation.log);
+    if (xetexCompilation.status === 0) {
+      dviEngine.writeMemFSFile("main.xdv", xetexCompilation.pdf);
+      dviEngine.setEngineMainFile("main.xdv");
+      let dviCompilation = await dviEngine.compilePDF();
+      const pdfBlob = new Blob([dviCompilation.pdf], {type : 'application/pdf'});
+      setPdfUrl(URL.createObjectURL(pdfBlob));
+      console.log('Logging URL');
+      console.log(pdfUrl);
+    }
   }
 
   return (
     <div id="app" className="container mx-auto">
       <Header />
-      <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full">
+      <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full min-h-500">
         <Editor value={code} setValue={setCode} />
-        <Preview compile={compile} />
+        <Preview compile={compile} pdfUrl={pdfUrl} />
       </main>
       <Footer />
     </div>
