@@ -38,7 +38,7 @@ function App() {
 
   const compile = async () => {
     if (!xetexEngine.isReady() || !dviEngine.isReady()) {
-      console.log('Engine not ready yey!');
+      console.log('Engine not ready yet!');
       return;
     }
     xetexEngine.writeMemFSFile("main.tex", code);
@@ -51,8 +51,6 @@ function App() {
       let dviCompilation = await dviEngine.compilePDF();
       const pdfBlob = new Blob([dviCompilation.pdf], {type : 'application/pdf'});
       setPdfUrl(URL.createObjectURL(pdfBlob));
-      console.log('Logging URL');
-      console.log(pdfUrl);
     }
   }
 
@@ -61,7 +59,7 @@ function App() {
       <Header />
       <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full min-h-500">
         <Editor value={code} setValue={setCode} />
-        <Preview compile={compile} pdfUrl={pdfUrl} />
+        <Preview compile={compile} pdfUrl={pdfUrl} enginesInitialized={enginesInitialized} />
       </main>
       <Footer />
     </div>
