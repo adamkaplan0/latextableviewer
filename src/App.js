@@ -6,11 +6,10 @@ import { Footer } from './Footer';
 import { DvipdfmxEngine } from './DvipdfmxEngine';
 import { XeTeXEngine } from "./XeTeXEngine";
 
-const xetexEngine = new XeTeXEngine();
-const dviEngine = new DvipdfmxEngine();
+const xetexEngine = new XeTeXEngine(), dviEngine = new DvipdfmxEngine();
 
 function App() {
-  const [enginesInitialized, setEnginesInitialized] = useState(false);
+  const [enginesStatus, setEnginesStatus] = useState(1);
   const [code, setCode] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
 
@@ -27,13 +26,11 @@ function App() {
   }, [pdfUrl]);
 
   const init = async () => {
-    if (!enginesInitialized) {
+    try {
       await xetexEngine.loadEngine();
       await dviEngine.loadEngine();
-      setEnginesInitialized(true);
-    }
-    console.log(xetexEngine);
-    console.log(dviEngine);
+      setEnginesStatus(2);
+    } catch (e) {}
   }
 
   const compile = async () => {
@@ -41,6 +38,7 @@ function App() {
       console.log('Engine not ready yet!');
       return;
     }
+    setEnginesStatus(3);
     xetexEngine.writeMemFSFile("main.tex", code);
     xetexEngine.setEngineMainFile("main.tex");
     let xetexCompilation = await xetexEngine.compileLaTeX();
@@ -52,6 +50,7 @@ function App() {
       const pdfBlob = new Blob([dviCompilation.pdf], {type : 'application/pdf'});
       setPdfUrl(URL.createObjectURL(pdfBlob));
     }
+    setEnginesStatus(2);
   }
 
   return (
@@ -59,7 +58,7 @@ function App() {
       <Header />
       <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full min-h-500">
         <Editor value={code} setValue={setCode} />
-        <Preview compile={compile} pdfUrl={pdfUrl} enginesInitialized={enginesInitialized} />
+        <Preview compile={compile} pdfUrl={pdfUrl} enginesStatus={enginesStatus} />
       </main>
       <Footer />
     </div>
