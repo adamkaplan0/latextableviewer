@@ -6,8 +6,8 @@ module.exports = function override(config, env) {
     }
 
     config.plugins.push(
-        new CopyWebpackPlugin({patterns: [{from: 'src/swiftlatexxetex.wasm', to: 'static/media'}]}),
-        new CopyWebpackPlugin({patterns: [{from: 'src/swiftlatexdvipdfm.wasm', to: 'static/media'}]})
+        new CopyWebpackPlugin({patterns: [{from: 'src/features/latexCompilation/swiftlatex/swiftlatexxetex.wasm', to: 'static/media'}]}),
+        new CopyWebpackPlugin({patterns: [{from: 'src/features/latexCompilation/swiftlatex/swiftlatexdvipdfm.wasm', to: 'static/media'}]})
     );
 
     return config;

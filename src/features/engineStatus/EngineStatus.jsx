@@ -1,6 +1,9 @@
-export const EngineIndicator = ({status}) => {
+import { useSelector } from "react-redux";
+
+export const EngineStatus = () => {
+  const engineStatus = useSelector(state => state.engineStatus);
   let statusMessage;
-  switch (status) {
+  switch (engineStatus) {
     case 1:
       statusMessage = <p className="text-orange-500">Initializing...</p>;
       break;
