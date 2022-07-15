@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 // Components
 import { Header } from './components/Header';
-import { LatexEditor } from './features/latexEditor/LatexEditor';
+import { LatexEditorContainer } from './features/latexEditor/LatexEditorContainer';
 import { PdfPreview } from './features/pdfPreview/PdfPreview';
 import { Footer } from './components/Footer';
 // Redux
@@ -20,7 +20,7 @@ const App = () => {
     <div id="app" className="container mx-auto">
       <Header />
       <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full min-h-500">
-        <LatexEditor />
+        <LatexEditorContainer />
         <PdfPreview />
       </main>
       <Footer />
