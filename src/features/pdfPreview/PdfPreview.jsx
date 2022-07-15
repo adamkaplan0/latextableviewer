@@ -6,12 +6,13 @@ import { EngineStatus } from '../engineStatus/EngineStatus';
 import loadingAnimation from '../../loading.gif'
 // Redux
 import { compileLatex, revokeCompiledPdfUrl } from '../latexCompilation/latexCompilation';
+import { selectFullSourceCode } from '../latexEditor/latexEditorSlice';
 
 
 export const PdfPreview = () => {
   // Select the URL of the PDF and the source code
   const pdfUrl = useSelector(state => state.pdfPreview);
-  const sourceCode = useSelector(state => state.latexEditor);
+  const sourceCode = useSelector(selectFullSourceCode);
 
   // Revoke the PDF URL every 30000 milliseconds
   useEffect(() => {
