@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { faSpinner, faCircleCheck, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 const options = {
   name: 'engineStatus',
@@ -35,24 +36,28 @@ export const selectFormattedEngineStatus = (state) => {
   switch (engineStatus) {
     case 1:
       return {
-        class: "text-orange-500",
-        text: "Initializing"
-      }
+        icon: faSpinner,
+        color: 'text-orange-500',
+        tooltip: 'Initializing LaTeX Engine...'
+      };
     case 2:
       return {
-        class: "text-green-500",
-        text: "Ready"
-      }
+        icon: faCircleCheck,
+        color: 'text-green-500',
+        tooltip: 'LaTeX Engine Ready for Use'
+      };
     case 3:
       return {
-        class: "text-yellow-500",
-        text: "Busy"
-      }
+        icon: faSpinner,
+        color: 'text-orange-500',
+        tooltip: 'LaTeX Engine Busy Compiling...'
+      };
     case 4:
       return {
-        class: "text-red-500",
-        text: "Error"
-      }
+        icon: faCircleExclamation,
+        color: 'text-red-500',
+        tooltip: 'Error with LaTeX Engine!'
+      };
     default:
       return null;
   }

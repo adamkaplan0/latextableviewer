@@ -25,8 +25,8 @@ export const PdfPreview = () => {
   return (
     <article className="flex flex-col items-left">
       <div className="flex">
+      <button onClick={() => compileLatex(sourceCode)} className="inline-block mr-2 bg-[#13678A] hover:bg-[#45C4B0] text-white py-2 px-5 font-bold">Compile</button>
       <EngineStatus />
-      <button onClick={() => compileLatex(sourceCode)}>Compile</button>
       </div>
       {pdfUrl !== "" && <embed src={pdfUrl} width="100%" height="1000px" type="application/pdf"></embed>}
       {pdfUrl === "" && <img height="1000px" src={loadingAnimation} />}
