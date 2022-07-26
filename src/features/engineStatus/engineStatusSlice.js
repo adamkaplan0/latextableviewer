@@ -44,7 +44,7 @@ export const selectFormattedEngineStatus = (state) => {
       return {
         icon: faCircleCheck,
         color: 'text-green-500',
-        tooltip: 'LaTeX Engine Ready for Use'
+        tooltip: 'LaTeX Engine Ready for Use! <br /> Click to see compiler log.'
       };
     case 3:
       return {

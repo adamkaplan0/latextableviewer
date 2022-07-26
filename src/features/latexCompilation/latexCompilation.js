@@ -4,8 +4,8 @@ import { XeTeXEngine } from "./swiftlatex/XeTeXEngine";
 
 // Redux store and actions
 import store from '../../store';
-import { setReadyEngineStatus, setBusyEngineStatus } from '../engineStatus/engineStatusSlice';
-import { setCompiledPdfUrl } from '../pdfPreview/pdfPreviewSlice';
+import { setReadyEngineStatus, setBusyEngineStatus, setErrorEngineStatus } from '../engineStatus/engineStatusSlice';
+import { setCompiledPdfUrl, setCompilerLog, setShowCompilerLog } from '../pdfPreview/pdfPreviewSlice';
 
 // Global LaTeX engine objects
 const xetexEngine = new XeTeXEngine(), dviEngine = new DvipdfmxEngine();
@@ -40,6 +40,7 @@ export const compileLatex = async (latexCode) => {
   let xetexCompilation = await xetexEngine.compileLaTeX();
   // Print the compilation log
   console.log(xetexCompilation.log);
+  store.dispatch(setCompilerLog(xetexCompilation.log));
 
   // On successfull first compilation continue with the second one
   if (xetexCompilation.status === 0) {
@@ -53,9 +54,13 @@ export const compileLatex = async (latexCode) => {
     const pdfBlob = new Blob([dviCompilation.pdf], {type : 'application/pdf'});
     // Create a temporary URL to this PDF blob
     store.dispatch(setCompiledPdfUrl(URL.createObjectURL(pdfBlob)));
+    store.dispatch(setShowCompilerLog(false));
+    // After compilation, the engine is ready again
+    store.dispatch(setReadyEngineStatus());
+  } else {
+    // If the compilation failed, reflect it with an error
+    store.dispatch(setErrorEngineStatus());
   }
-  // After compilation, the engine is ready again
-  store.dispatch(setReadyEngineStatus());
 }
 
 export const revokeCompiledPdfUrl = (pdfUrl) => {

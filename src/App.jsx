@@ -7,6 +7,8 @@ import { PdfPreview } from './features/pdfPreview/PdfPreview';
 import { Footer } from './components/Footer';
 // Redux
 import { initializeLatexEngines } from "./features/latexCompilation/latexCompilation";
+import { SplitPane } from "./components/SplitPane";
+import { ButtonBarContainer } from "./features/buttonBar/ButtonBarContainer";
 
 
 const App = () => {
@@ -19,9 +21,12 @@ const App = () => {
   return (
     <div id="app" className="container mx-auto">
       <Header />
-      <main className="grid grid-cols-2 gap-4 items-left place-content-stretch h-full min-h-500">
-        <LatexEditorContainer />
-        <PdfPreview />
+      <main>
+        <ButtonBarContainer />
+        <SplitPane>
+          <LatexEditorContainer />
+          <PdfPreview />
+        </SplitPane>
       </main>
       <Footer />
     </div>

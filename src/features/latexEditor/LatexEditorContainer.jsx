@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 // Components
 import { LatexEditor } from "./LatexEditor";
 // Redux
-import { setPreamble, setBody, toggleSourceCode, selectBody, selectFullSourceCode, selectShowFullSourceCode } from "./latexEditorSlice";
+import { setPreamble, setBody, selectBody, selectFullSourceCode, selectShowFullSourceCode } from "./latexEditorSlice";
 
 
 export const LatexEditorContainer = () => {
@@ -21,14 +21,12 @@ export const LatexEditorContainer = () => {
     } else {
       dispatch(setBody(editorValue));
     }
-  }
-  const toggleVisibility = () => dispatch(toggleSourceCode());
+  };
 
   return (
     <LatexEditor
       handleChange={handleChange}
       sourceCode={showFullSource ? fullSourceCode : body}
-      toggleVisibility={toggleVisibility}
     />
-  )
-}
+  );
+};
