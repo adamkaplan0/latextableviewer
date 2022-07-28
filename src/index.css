@@ -3,7 +3,46 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply container mx-auto;
+  }
+
   header a {
     @apply hover:text-gray-400;
+    @apply hover:no-underline;
+  }
+
+  header a.active {
+    @apply underline decoration-dotted;
+  }
+
+  a {
+    @apply hover:underline decoration-dotted;
+  }
+
+  button {
+    @apply hover:bg-active bg-inactive;
+  }
+
+  #about h1 {
+    @apply text-3xl text-center mb-6;
+  }
+
+  #about h2 {
+    @apply text-2xl text-center mb-6;
+  }
+
+  #about a {
+    @apply text-inactive underline decoration-dotted;
+    @apply hover:no-underline hover:border-2 hover:border-dotted hover:border-inactive;
+  }
+
+  #about {
+    @apply max-w-[50%];
+    @apply mx-auto min-h-[500px];
+  }
+
+  #about p {
+    @apply text-xl mb-4;
   }
 }

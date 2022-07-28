@@ -6,3 +6,4 @@ export const SplitPane = ({children}) => {
     </article>
   )
 };
+// "grid grid-cols-2 gap-4 items-left place-content-stretch h-full"
