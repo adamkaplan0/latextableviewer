@@ -20,10 +20,6 @@
     @apply hover:underline decoration-dotted;
   }
 
-  button {
-    @apply hover:bg-active bg-inactive;
-  }
-
   #about h1 {
     @apply text-3xl text-center mb-6;
   }
@@ -33,8 +29,8 @@
   }
 
   #about a {
-    @apply text-inactive underline decoration-dotted;
-    @apply hover:no-underline hover:border-2 hover:border-dotted hover:border-inactive;
+    @apply text-link underline decoration-dotted;
+    @apply hover:no-underline hover:border-2 hover:border-dotted hover:border-link;
   }
 
   #about {

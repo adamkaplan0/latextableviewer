@@ -16,7 +16,7 @@ export const PdfPreview = () => {
       {compilerLog}
     </p>
   );
-  const pdfEmbed = <embed src={pdfUrl} width="100%" height="500px" type="application/pdf"></embed>;
+  const pdfEmbed = <embed src={pdfUrl} width="100%" height="500px" type="application/pdf" className="border border-black"></embed>;
 
 
   return (
