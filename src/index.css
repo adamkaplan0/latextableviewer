@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply container mx-auto;
+    @apply container mx-auto w-[90%];
   }
 
   header a {
