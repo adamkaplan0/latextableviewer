@@ -41,4 +41,48 @@
   #about p {
     @apply text-xl mb-4;
   }
+
+  #splitPane {
+    @apply grid grid-cols-2 gap-4 place-content-stretch;
+  }
+
+  .LatexEditor {
+    @apply border border-black;
+  }
+
+  .CompilerLog {
+    @apply border border-black p-2 font-mono overflow-y-scroll;
+  }
+
+  .PdfEmbedding {
+    @apply border border-black;
+  }
+
+  @media only screen and (min-width: 851px) {
+    .CompilerLog {
+      @apply min-h-[70vh] max-h-[70vh];
+    }
+
+    .PdfEmbedding {
+      @apply min-h-[70vh];
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
+    #splitPane {
+      @apply flex flex-col self-stretch;
+    }
+
+    .LatexEditor {
+      @apply min-h-[35vh];
+    }
+
+    .CompilerLog {
+      @apply min-h-[30vh] max-h-[30vh];
+    }
+
+    .PdfEmbedding {
+      @apply min-h-[30vh];
+    }
+  }
 }

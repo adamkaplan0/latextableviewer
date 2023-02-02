@@ -17,7 +17,7 @@ export const LatexEditor = ({handleChange, sourceCode}) => {
       editorProps={{ $blockScrolling: true }}
       onChange={handleChange}
       value={sourceCode}
-      className="border border-black"
+      className="LatexEditor"
     />
   );
 };
