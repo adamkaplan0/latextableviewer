@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { HamburgerMenu } from "../../components/HamburgerMenu";
 
 
 export const Header = () => {
@@ -20,13 +21,11 @@ export const Header = () => {
         </Link>
       </h1>
       {/* TODO: #23 Implement a hamburger menu */}
-      <nav className="hidden md:block">
-        <ul className="list-none inline-flex justify-around items-center gap-12 text-xl text-center">
-          <li><NavLink to="/" className={({isActive}) => navLinkStyle(isActive)}>App</NavLink></li>
-          <li><a href="https://github.com/adamkaplan0/latextableviewer" className="no-underline hover:underline">GitHub</a></li>
-          <li><NavLink to="/about" className={({isActive}) => navLinkStyle(isActive)}>About</NavLink></li>
-        </ul>
-      </nav>
+      <HamburgerMenu>
+        <li><NavLink to="/" className={({isActive}) => navLinkStyle(isActive)}>App</NavLink></li>
+        <li><a href="https://github.com/adamkaplan0/latextableviewer" className="no-underline hover:underline">GitHub</a></li>
+        <li><NavLink to="/about" className={({isActive}) => navLinkStyle(isActive)}>About</NavLink></li>
+      </HamburgerMenu>
     </header>
   );
 };
